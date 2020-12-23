@@ -6,10 +6,11 @@ import {
   View
 } from 'react-native';
 
-const Cita = ({item}) => {
+const Cita = ({item, eliminarPaciente}) => {
 
-    const dialogoEliminar = () => {
-        console.log('Eliminando')
+    const dialogoEliminar = id => {
+        console.log('Eliminando', id)
+        eliminarPaciente(id)
     }
 
     return ( 
@@ -27,7 +28,7 @@ const Cita = ({item}) => {
                 <Text style={styles.texto}>{item.sintomas}</Text>
             </View> 
             <View>
-                <TouchableHighlight onPress={ () => dialogoEliminar() } style={styles.btnEliminar}>
+                <TouchableHighlight onPress={ () => dialogoEliminar(item.id) } style={styles.btnEliminar}>
                     <Text style={styles.textoEliminar}>
                         Eliminar &times;
                     </Text>
