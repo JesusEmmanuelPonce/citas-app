@@ -7,6 +7,7 @@ import {
   FlatList
 } from 'react-native';
 import Cita from './src/components/Cita';
+import Formulario from './src/components/Formulario';
 
 const App = () => {
 
@@ -16,16 +17,25 @@ const App = () => {
     {id: '3', paciente: 'Native', propietario: 'Joshua', sintomas: 'No se levanta'}
   ])
 
+  const eliminarPaciente = id => {
+    setCitas((citasActuales) => {
+      return citasActuales.filter(cita => cita.id !== id)
+    })
+  }
+
   return (
     <>
       <View style={styles.contenedor}>
         <Text style={styles.titulo}>
           Administrador de citas
         </Text>
-
+        <Formulario />
+        <Text style={styles.titulo}>
+          { citas.length > 0 ? 'Administra tus citas' : 'No hay citas' }
+        </Text>
         <FlatList 
           data={citas}
-          renderItem={ ({item}) => <Cita item={item} /> }
+          renderItem={ ({item}) => <Cita item={item} eliminarPaciente={eliminarPaciente} /> }
           keyExtractor={ cita => cita.id}
         />
 
