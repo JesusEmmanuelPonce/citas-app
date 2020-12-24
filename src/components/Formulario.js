@@ -4,16 +4,89 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
+  Button
 } from 'react-native';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const Formulario = () => {
+
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+      setDatePickerVisibility(true);
+    };
+  
+    const hideDatePicker = () => {
+      setDatePickerVisibility(false);
+    };
+
+    const showTimePicker = () => {
+      setTimePickerVisibility(true);
+    };
+  
+    const hideTimePicker = () => {
+      setTimePickerVisibility(false);
+    };
+  
+    const confirmarFecha = (date) => {
+      console.warn("A date has been picked: ", date);
+      hideDatePicker();
+    };
+
+    const confirmarHora = (time) => {
+      console.warn("Time has been picked: ", time);
+      hideTimePicker();
+    };
+
     return ( 
         <>
            <View style={styles.formulario}>
                 <View>
                     <Text style={styles.label}>Paciente</Text>
                     <TextInput 
+                        onChangeText={(text) => console.log(text)}
+                        style={styles.input} 
+                    />
+                </View>
+                <View>
+                    <Text style={styles.label}>Dueño</Text>
+                    <TextInput 
+                        onChangeText={(text) => console.log(text)}
+                        style={styles.input} 
+                    />
+                </View>
+                <View>
+                    <Text style={styles.label}>Teléfono Contacto</Text>
+                    <TextInput 
+                        onChangeText={(text) => console.log(text)}
+                        style={styles.input} 
+                        keyboardType='numeric'
+                    />
+                </View>
+                <View>
+                    <Button title="Seleccionar fecha" onPress={showDatePicker} />
+                    <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={confirmarFecha}
+                    onCancel={hideDatePicker}
+                    />
+                </View>
+                <View>
+                    <Button title="Seleccionar hora" onPress={showTimePicker} />
+                    <DateTimePickerModal
+                    isVisible={isTimePickerVisible}
+                    mode="time"
+                    onConfirm={confirmarHora}
+                    onCancel={hideTimePicker}
+                    />
+                </View>
+                <View>
+                    <Text style={styles.label}>Sintomas</Text>
+                    <TextInput 
+                        multiline
                         onChangeText={(text) => console.log(text)}
                         style={styles.input} 
                     />
